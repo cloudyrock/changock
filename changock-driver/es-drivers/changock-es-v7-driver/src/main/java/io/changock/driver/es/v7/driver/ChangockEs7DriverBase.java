@@ -3,10 +3,8 @@ package io.changock.driver.es.v7.driver;
 import io.changock.driver.api.driver.ChangeSetDependency;
 import io.changock.driver.api.entry.ChangeEntry;
 import io.changock.driver.api.lock.LockManager;
-import io.changock.driver.core.decorator.LockMethodInvoker;
 import io.changock.driver.core.driver.ConnectionDriverBase;
 import io.changock.driver.core.lock.LockRepository;
-import io.changock.driver.es.v7.decorator.ClientDecorator;
 import io.changock.migration.api.exception.ChangockException;
 import io.changock.utils.annotation.NotThreadSafe;
 import org.elasticsearch.client.Client;
@@ -41,10 +39,10 @@ public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> ex
   @Override
   public Set<ChangeSetDependency> getDependencies() {
     LockManager lockManager = this.getLockManager();
-    LockMethodInvoker invoker = new LockMethodInvoker(lockManager);
+//    LockMethodInvoker invoker = new LockMethodInvoker(lockManager);
     Set<ChangeSetDependency> dependencies = new HashSet<>();
-    Client esClientDecorator = ClientDecorator.getProxy(esClient, invoker);
-    dependencies.add(new ChangeSetDependency(Client.class, esClientDecorator));
+//    Client esClientDecorator = ClientDecorator.getProxy(esClient, invoker);
+//    dependencies.add(new ChangeSetDependency(Client.class, esClientDecorator));
     return dependencies;
   }
 
