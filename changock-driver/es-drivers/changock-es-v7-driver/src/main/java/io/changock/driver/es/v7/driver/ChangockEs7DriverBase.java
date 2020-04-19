@@ -17,7 +17,7 @@ import java.util.Set;
 /**
  *
  */
-//TODO This base class is needed because it will used by the pro version as foundation.
+//TODO This base class is needed because it will used  as foundation by the pro version.
 // Extend this class to provide the actual driver: ChangockEs7Driver
 // Annotate with {@link  NotThreadSafe} if it's not synchronized
 public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> extends ConnectionDriverBase<CHANGE_ENTRY> {
