@@ -1,7 +1,8 @@
-package io.changock.driver.es.v7.repository;
+package io.changock.driver.es.v7.repository.change;
 
 import io.changock.driver.api.entry.ChangeEntry;
 import io.changock.driver.core.entry.ChangeEntryRepository;
+import io.changock.driver.es.v7.repository.EsRepositoryBase;
 import io.changock.migration.api.exception.ChangockException;
 import io.changock.utils.field.FieldInstance;
 

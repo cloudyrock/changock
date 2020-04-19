@@ -15,10 +15,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This base class is needed because it will used by professional edition projects.
- * Extend this class to provide the actual driver: ChangockEs7Driver
- * TODO annotated with {@link  NotThreadSafe} if it's not synchronized
+ *
  */
+//TODO This base class is needed because it will used by the pro version as foundation.
+// Extend this class to provide the actual driver: ChangockEs7Driver
+// Annotate with {@link  NotThreadSafe} if it's not synchronized
 public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> extends ConnectionDriverBase<CHANGE_ENTRY> {
 
   private final Client esClient;
@@ -32,7 +33,7 @@ public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> ex
    */
   @Override
   protected LockRepository getLockRepository() {
-    //TODO returns lockRepository base on esClient
+    //TODO returns lockRepository based on esClient
     return null;
   }
 
@@ -49,6 +50,7 @@ public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> ex
 
   @Override
   public void runValidation() throws ChangockException {
-    //TODO perform any validation before stating migration. Like es client is not null
+    //TODO perform required validation before migration, like esClint not null, etc.
+    // This will be executed right after initialize()
   }
 }

@@ -1,8 +1,9 @@
-package io.changock.driver.es.v7.repository;
+package io.changock.driver.es.v7.repository.lock;
 
 import io.changock.driver.core.lock.LockEntry;
 import io.changock.driver.core.lock.LockPersistenceException;
 import io.changock.driver.core.lock.LockRepository;
+import io.changock.driver.es.v7.repository.EsRepositoryBase;
 import io.changock.utils.field.FieldInstance;
 
 import java.util.List;

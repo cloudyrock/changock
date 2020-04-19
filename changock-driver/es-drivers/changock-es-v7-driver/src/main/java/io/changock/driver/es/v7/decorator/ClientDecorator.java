@@ -6,7 +6,7 @@ import org.elasticsearch.client.Client;
 public interface ClientDecorator extends Client {
 
   static Client getProxy(Client implementation, LockMethodInvoker invoker) {
-    //todo return a decorator. It can use java interceptor or manual decorator
+    //TODO return a decorator. It can use java interceptor or manual decorator
     Client proxy = implementation;
     return proxy;
   }
