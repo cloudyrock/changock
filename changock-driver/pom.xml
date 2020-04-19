@@ -13,6 +13,7 @@
     <module>changock-driver-api</module>
     <module>changock-driver-core</module>
     <module>mongo-drivers</module>
+    <module>es-drivers</module>
   </modules>
 
   <properties>
