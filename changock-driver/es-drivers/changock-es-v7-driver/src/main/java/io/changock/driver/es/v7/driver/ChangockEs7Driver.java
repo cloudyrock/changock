@@ -11,7 +11,6 @@ public class ChangockEs7Driver extends ChangockEs7DriverBase<ChangeEntry> {
 
   protected EsChangeEntryRepository<ChangeEntry> changeEntryRepository;
 
-
   public ChangockEs7Driver(Client esClient) {
     super(esClient);
   }

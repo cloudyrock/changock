@@ -5,6 +5,7 @@ import io.changock.driver.api.entry.ChangeEntry;
 import io.changock.driver.api.lock.LockManager;
 import io.changock.driver.core.driver.ConnectionDriverBase;
 import io.changock.driver.core.lock.LockRepository;
+import io.changock.driver.core.lock.interceptor.proxy.LockGuardProxy;
 import io.changock.migration.api.exception.ChangockException;
 import io.changock.utils.annotation.NotThreadSafe;
 import org.elasticsearch.client.Client;
@@ -26,29 +27,27 @@ public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> ex
     this.esClient = esClient;
   }
 
-  /**
-   * retrieves
-   */
   @Override
   protected LockRepository getLockRepository() {
     //TODO returns lockRepository based on esClient
+    // It will be called at initialize()
+    // Ensure idempotency
     return null;
   }
 
 
   @Override
-  public Set<ChangeSetDependency> getDependencies() {
-    LockManager lockManager = this.getLockManager();
-//    LockMethodInvoker invoker = new LockMethodInvoker(lockManager);
-    Set<ChangeSetDependency> dependencies = new HashSet<>();
-//    Client esClientDecorator = ClientDecorator.getProxy(esClient, invoker);
-//    dependencies.add(new ChangeSetDependency(Client.class, esClientDecorator));
-    return dependencies;
-  }
-
-  @Override
   public void runValidation() throws ChangockException {
     //TODO perform required validation before migration, like esClint not null, etc.
     // This will be executed right after initialize()
+  }
+
+  @Override
+  public Set<ChangeSetDependency> getDependencies() {
+    LockManager lockManager = this.getLockManager();
+    Set<ChangeSetDependency> dependencies = new HashSet<>();
+    Client esClientDecorator = LockGuardProxy.getProxy(esClient, Client.class, lockManager);
+    dependencies.add(new ChangeSetDependency(Client.class, esClientDecorator));
+    return dependencies;
   }
 }
