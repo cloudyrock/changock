@@ -183,6 +183,7 @@ public class MongoDriverITest extends IntegrationTestBase {
     return metadata;
   }
 
+  // TODO move this test to ChangeLogService and ChangockBase
   @Test
   public void shouldFail_WhenRunningChangeLog_IfChangeSetIdDuplicated() {
     collection = this.getDataBase().getCollection(CHANGELOG_COLLECTION_NAME);
@@ -195,6 +196,8 @@ public class MongoDriverITest extends IntegrationTestBase {
     runner.execute();
   }
 
+
+  //TODO keep here and also move it to runner module
   @Test
   public void shouldPassMongoDatabaseDecoratorToChangeSet() {
     CallVerifier callVerifier = new CallVerifier();
@@ -208,6 +211,7 @@ public class MongoDriverITest extends IntegrationTestBase {
     assertEquals(1, callVerifier.counter);
   }
 
+  //TODO move this to runner module
   @Test
   public void shouldPrioritizeConnectorOverStandardDependencies_WhenThereIsConflict() {
     CallVerifier callVerifier = new CallVerifier();

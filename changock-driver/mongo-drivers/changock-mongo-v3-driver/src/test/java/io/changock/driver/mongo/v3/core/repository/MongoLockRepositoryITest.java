@@ -29,16 +29,12 @@ public class MongoLockRepositoryITest extends IntegrationTestBase {
 
   private LockRepository<Document> repository;
 
-
   @Before
   public void setUp() {
     collection = getDataBase().getCollection(LOCK_COLLECTION_NAME);
     repository = new MongoLockRepository(collection);
     repository.initialize();
   }
-
-
-
 
   @Test
   public void ensureKeyUniqueness() {
