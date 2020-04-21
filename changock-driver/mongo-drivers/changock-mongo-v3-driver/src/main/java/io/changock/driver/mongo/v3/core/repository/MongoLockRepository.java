@@ -81,7 +81,7 @@ public class MongoLockRepository extends MongoRepositoryBase<LockEntry> implemen
 
   protected void insertUpdate(LockEntry newLock, boolean onlyIfSameOwner)  {
     boolean lockHeld;
-    String debErrorDetail = "not db error";
+    String debErrorDetail = "not db onFailure";
     Bson acquireLockQuery = getAcquireLockQuery(newLock.getKey(), newLock.getOwner(), onlyIfSameOwner);
     Document newLockDocumentSet = new Document().append("$set", toEntity(newLock));
     try {

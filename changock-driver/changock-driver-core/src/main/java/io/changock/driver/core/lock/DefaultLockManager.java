@@ -26,14 +26,14 @@ public class DefaultLockManager implements LockManager {
   private static final long LOCK_REFRESH_MARGIN = 60L * 1000L;// 1 minute
   private static final long MINIMUM_SLEEP_THREAD = 500L;
 
-  //long debug/info/error messages
+  //long debug/info/onFailure messages
   private static final String MAX_WAIT_EXCEEDED_ERROR_MSG =
       "Waiting time required(%d ms) to take the lock is longer than maxWaitingTime(%d ms)";
   private static final String GOING_TO_SLEEP_MSG =
       "Changock is going to sleep to wait for the lock:  {} ms({} minutes)";
   private static final String EXPIRATION_ARG_ERROR_MSG = "Lock expiration period must be greater than %d ms";
-  private static final String MAX_TRIES_ERROR_TEMPLATE = "MaxTries(%d) reached due to LockPersistenceException: \n\tcurrent lock:  %s\n\tnew lock: %s\n\tacquireLockQuery: %s\n\tdb error detail: %s";
-  private static final String LOCK_HELD_BY_OTHER_PROCESS = "Lock held by other process. Cannot ensure lock.\n\tCurrent try: %d\n\tcurrent lock:  %s\n\tnew lock: %s\n\tacquireLockQuery: %s\n\tdb error detail: %s";
+  private static final String MAX_TRIES_ERROR_TEMPLATE = "MaxTries(%d) reached due to LockPersistenceException: \n\tcurrent lock:  %s\n\tnew lock: %s\n\tacquireLockQuery: %s\n\tdb onFailure detail: %s";
+  private static final String LOCK_HELD_BY_OTHER_PROCESS = "Lock held by other process. Cannot ensure lock.\n\tCurrent try: %d\n\tcurrent lock:  %s\n\tnew lock: %s\n\tacquireLockQuery: %s\n\tdb onFailure detail: %s";
 
 
   //injections

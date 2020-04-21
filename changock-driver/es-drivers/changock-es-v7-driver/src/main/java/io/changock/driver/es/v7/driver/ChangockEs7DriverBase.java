@@ -5,10 +5,14 @@ import io.changock.driver.api.entry.ChangeEntry;
 import io.changock.driver.api.lock.LockManager;
 import io.changock.driver.core.driver.ConnectionDriverBase;
 import io.changock.driver.core.lock.LockRepository;
-import io.changock.driver.core.lock.interceptor.proxy.LockGuardProxy;
+import io.changock.driver.core.lock.guard.invoker.LockGuardInvoker;
+import io.changock.driver.core.lock.guard.proxy.LockGuardProxy;
+import io.changock.driver.es.v7.interceptor.RestHighLevelClientDecorator;
 import io.changock.migration.api.exception.ChangockException;
 import io.changock.utils.annotation.NotThreadSafe;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.client.RestClientBuilder;
+import org.elasticsearch.client.RestHighLevelClient;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,8 +26,19 @@ import java.util.Set;
 public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> extends ConnectionDriverBase<CHANGE_ENTRY> {
 
   private final Client esClient;
+  private final RestClientBuilder restClientBuilder;
 
   public ChangockEs7DriverBase(Client esClient) {
+    this(null, esClient);
+  }
+
+
+  public ChangockEs7DriverBase(RestClientBuilder restClientBuilder) {
+    this(restClientBuilder, null);
+  }
+
+  public ChangockEs7DriverBase(RestClientBuilder restClientBuilder, Client esClient) {
+    this.restClientBuilder = restClientBuilder;
     this.esClient = esClient;
   }
 
@@ -46,8 +61,20 @@ public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> ex
   public Set<ChangeSetDependency> getDependencies() {
     LockManager lockManager = this.getLockManager();
     Set<ChangeSetDependency> dependencies = new HashSet<>();
-    Client esClientDecorator = LockGuardProxy.getProxy(esClient, Client.class, lockManager);
-    dependencies.add(new ChangeSetDependency(Client.class, esClientDecorator));
+    injectEsClientDependency(lockManager, dependencies);
+    injectRestHighLevelClientDependency(lockManager, dependencies);
     return dependencies;
+  }
+
+  private void injectEsClientDependency(LockManager lockManager, Set<ChangeSetDependency> dependencies) {
+    Client esClientDecorator = esClient != null ? LockGuardProxy.getProxy(esClient, Client.class, lockManager) : null;
+    dependencies.add(new ChangeSetDependency(Client.class, esClientDecorator));
+  }
+
+  private void injectRestHighLevelClientDependency(LockManager lockManager, Set<ChangeSetDependency> dependencies) {
+    RestHighLevelClient restHighLevelClientDecorator = restClientBuilder != null
+        ? RestHighLevelClientDecorator.getProxy(restClientBuilder, lockManager)
+        : null;
+    dependencies.add(new ChangeSetDependency(RestHighLevelClient.class, restHighLevelClientDecorator));
   }
 }

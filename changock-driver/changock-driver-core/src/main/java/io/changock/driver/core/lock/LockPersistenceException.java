@@ -17,7 +17,7 @@ public class LockPersistenceException extends RuntimeException {
   private final String newLockEntity;
 
   /**
-   * Further db error detail
+   * Further db onFailure detail
    */
   private final String dbErrorDetail;
 

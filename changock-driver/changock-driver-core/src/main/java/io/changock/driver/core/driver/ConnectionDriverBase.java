@@ -37,7 +37,7 @@ public abstract class ConnectionDriverBase<CHANGE_ENTRY extends ChangeEntry> imp
   @Override
   public LockManager getLockManager() {
     if(lockManager == null) {
-      throw new ChangockException("Internal error: Driver needs to be initialized by the runner");
+      throw new ChangockException("Internal onFailure: Driver needs to be initialized by the runner");
     }
     return lockManager;
   }

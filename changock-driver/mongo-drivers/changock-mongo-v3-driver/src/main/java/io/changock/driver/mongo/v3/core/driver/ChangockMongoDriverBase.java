@@ -46,7 +46,7 @@ public abstract class ChangockMongoDriverBase<CHANGE_ENTRY extends ChangeEntry> 
       throw new ChangockException("MongoDatabase cannot be null");
     }
     if (this.getLockManager() == null) {
-      throw new ChangockException("Internal error: Driver needs to be initialized by the runner");
+      throw new ChangockException("Internal onFailure: Driver needs to be initialized by the runner");
     }
   }
 
