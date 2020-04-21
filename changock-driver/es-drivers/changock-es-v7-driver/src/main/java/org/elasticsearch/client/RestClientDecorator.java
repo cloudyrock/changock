@@ -15,7 +15,7 @@ public class RestClientDecorator extends RestClient {
 
 
 
-  private RestClientDecorator(RestClient client, LockManager lockManager) {
+  public RestClientDecorator(RestClient client, LockManager lockManager) {
     super(null, new Header[]{}, client.getNodes(), null, null, null, false);
     this.impl = client;
     this.lockManager = lockManager;
