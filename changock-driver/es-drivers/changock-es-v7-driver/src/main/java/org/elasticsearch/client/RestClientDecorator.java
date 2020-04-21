@@ -13,7 +13,9 @@ public class RestClientDecorator extends RestClient {
   private final RestClient impl;
   private final LockManager lockManager;
 
-  public RestClientDecorator(RestClient client, LockManager lockManager) {
+
+
+  private RestClientDecorator(RestClient client, LockManager lockManager) {
     super(null, new Header[]{}, client.getNodes(), null, null, null, false);
     this.impl = client;
     this.lockManager = lockManager;
@@ -21,12 +23,11 @@ public class RestClientDecorator extends RestClient {
 
   @Override
   public void setNodes(Collection<Node> nodes) {
-    impl.setNodes(nodes);
   }
 
   @Override
   public List<Node> getNodes() {
-    return impl.getNodes();
+    throw new UnsupportedOperationException("setNodes not supported for RestClientDecorator");
   }
 
   @Override
