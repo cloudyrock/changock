@@ -61,7 +61,7 @@ public class MongoDriverITest {
 
   @Test
   public void shouldPassInterceptorsForDriverConnectionDependenciesAsChangeSetParameter() {
-    // USE ChangeLogEnsureInterceptor and use the driver connection dependencies(for instance, for Mongo spring data, it would need to ensure
+    // USE ChangeLogEnsureInterceptor and use the driver connection dependencies(As example, for Mongo spring data, it would need to ensure
     //     interceptor for MongoDatabase and MongoTemplate
     // PRECONDITION: changeSet method have driver connection dependencies as parameter
     // RESULT: Parameter injected to the changeSet method should be the interceptor(any way provided: decorator, proxy, etc.)
