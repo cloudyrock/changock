@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+//TODO add test to check lock ensure
 public class RestHighLevelClientDecorator extends RestHighLevelClient {
 
   public static RestHighLevelClient getProxy(RestClient restClient, LockManager lockManager) {
