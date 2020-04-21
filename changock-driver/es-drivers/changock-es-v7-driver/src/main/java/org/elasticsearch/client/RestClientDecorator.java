@@ -42,7 +42,6 @@ public class RestClientDecorator extends RestClient {
     return impl.performRequestAsync(request, responseListener);
   }
 
-
   @Override
   public void close() throws IOException {
     impl.close();

@@ -11,6 +11,7 @@ import io.changock.driver.es.v7.interceptor.RestHighLevelClientDecorator;
 import io.changock.migration.api.exception.ChangockException;
 import io.changock.utils.annotation.NotThreadSafe;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 
@@ -26,19 +27,18 @@ import java.util.Set;
 public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> extends ConnectionDriverBase<CHANGE_ENTRY> {
 
   private final Client esClient;
-  private final RestClientBuilder restClientBuilder;
+  private final RestClient restClient;
 
   public ChangockEs7DriverBase(Client esClient) {
-    this(null, esClient);
+    this((RestClient)null, esClient);
   }
 
-
-  public ChangockEs7DriverBase(RestClientBuilder restClientBuilder) {
-    this(restClientBuilder, null);
+  public ChangockEs7DriverBase(RestClient restClient) {
+    this(restClient, null);
   }
 
-  public ChangockEs7DriverBase(RestClientBuilder restClientBuilder, Client esClient) {
-    this.restClientBuilder = restClientBuilder;
+  public ChangockEs7DriverBase(RestClient restClient, Client esClient) {
+    this.restClient = restClient;
     this.esClient = esClient;
   }
 
@@ -72,8 +72,8 @@ public abstract class ChangockEs7DriverBase<CHANGE_ENTRY extends ChangeEntry> ex
   }
 
   private void injectRestHighLevelClientDependency(LockManager lockManager, Set<ChangeSetDependency> dependencies) {
-    RestHighLevelClient restHighLevelClientDecorator = restClientBuilder != null
-        ? RestHighLevelClientDecorator.getProxy(restClientBuilder, lockManager)
+    RestHighLevelClient restHighLevelClientDecorator = restClient != null
+        ? RestHighLevelClientDecorator.getProxy(restClient, lockManager)
         : null;
     dependencies.add(new ChangeSetDependency(RestHighLevelClient.class, restHighLevelClientDecorator));
   }
